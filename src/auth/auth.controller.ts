@@ -1,5 +1,5 @@
 // src/auth/auth.controller.ts
-import { Body, Controller, Get,Post } from '@nestjs/common';
+import { Body, Controller, Get,Post,Put,Param } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Login } from './entity/login.entity';
 import { LoginDto } from './dto/login.dto';
@@ -29,6 +29,30 @@ async addLogin(@Body() loginData: CreateLoginDto) {
     data: added,
   };
 }
+@Put('edit/:id')
+async editAuth(
+  @Param('id') id: string,
+  @Body() loginDto: CreateLoginDto
+) {
+  const edit = await this.authService.updateLogin(id, loginDto);
+  return {
+    statusCode: 200,
+    message: 'Edited Successfully',
+    data: edit,
+  };
+}
+
+// @Put('edit/:id')
+// async editAuth(@Param()authService:CreateLoginDto){
+//   const edit =await this.authService.All(loginDto);
+//   return{
+//     statusCode:200,
+//     message:'Edited Successfully',
+//     data:edit,
+
+//   }
+// }
+
 }
 
 
